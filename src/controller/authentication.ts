@@ -7,3 +7,8 @@ const oauthLogin = (req:Request, res:Response):void =>{
 const oauthCallback = (req:Request, res:Response):void => {
   console.log(res)
 }
+
+module.exports={
+  oauthLogin,
+  oauthCallback
+}
