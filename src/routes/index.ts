@@ -1,7 +1,7 @@
-const router = require("express").Router();
+import {Router} from "express";
+
+const router = Router();
 
 router.use("/login",require("./authentication"))
 
 module.exports = router
-
-export {}

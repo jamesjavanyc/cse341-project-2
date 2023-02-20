@@ -25,8 +25,8 @@ mongoose.connect(process.env.MONGO_URI, mongooseOption)
       console.log("Server start on port " + port);
     });
   })
-  .catch(() => {
-      console.error("Server failed to start.");
+  .catch((e:any) => {
+      console.error(e);
     }
   );
 
