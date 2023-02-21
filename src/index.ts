@@ -1,8 +1,41 @@
+import { NextFunction, Request, Response } from "express";
+import "express-async-error"
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+
+const { ApolloServer } = require("apollo-server-express");
+const typeDefs = `
+
+type Query {
+
+  totalPosts: Int!
+
+}
+
+`;
+const resolvers = {
+
+  Query: {
+    totalPosts: () => {
+
+      return 42;
+    }
+  }
+
+};
+
+const apolloServer = new ApolloServer({
+
+  typeDefs,
+
+  resolvers
+
+});
 
 
 dotenv.config();
@@ -12,7 +45,14 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/",  require("./routes"))
+app.use(cookieParser());
+app.use(logger('dev'));
+
+app.use("/rest",  require("./routes"))
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log('handler error...', err)
+})
 
 
 const mongooseOption = {
@@ -20,7 +60,9 @@ const mongooseOption = {
   useUnifiedTopology: true
 };
 mongoose.connect(process.env.MONGO_URI, mongooseOption)
-  .then(() => {
+  .then(async() => {
+    await apolloServer.start();
+    apolloServer.applyMiddleware({ app });
     app.listen(port, () => {
       console.log("Server start on port " + port);
     });

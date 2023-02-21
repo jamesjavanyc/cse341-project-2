@@ -1,4 +1,4 @@
-import { IUser } from "./types/document"
+import { IUser } from "./abstract/user"
 import { model, Schema } from "mongoose"
 
 const userSchema: Schema = new Schema(
@@ -6,16 +6,16 @@ const userSchema: Schema = new Schema(
     email: {
       type: String,
       required: true,
+      unique:true
     },
 
     name: {
       type: String,
-      required: true,
+      default:"New user"
     },
 
     password: {
-      type: String,
-      required: true,
+      type: String
     },
   },
   { timestamps: true }
