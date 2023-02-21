@@ -9,25 +9,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const { ApolloServer } = require("apollo-server-express");
-const typeDefs = `
-
-type Query {
-
-  totalPosts: Int!
-
-}
-
-`;
-const resolvers = {
-
-  Query: {
-    totalPosts: () => {
-
-      return 42;
-    }
-  }
-
-};
+const typeDefs = require("./typeDef")
+const resolvers = require("./resolvers")
 
 const apolloServer = new ApolloServer({
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import PostDao from "@model/post";
+import PostDao from "../model/post";
 
 const getAllPublicPosts = async (req: Request, res: Response) => {
   try {

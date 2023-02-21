@@ -3,8 +3,7 @@ import { NextFunction, Request, Response } from "express";
 const jwt = require("jsonwebtoken");
 
 const secretKey = "secretKey";
-// 生成token
-export const generateToken = function (payload:any):string {
+export const generateRestToken = function (payload:any):string {
   const token = jwt.sign({payload}, secretKey, {
     expiresIn: 60 * 60 * 365 * 24 ,
   });
@@ -12,8 +11,7 @@ export const generateToken = function (payload:any):string {
   return token
 };
 
-// 验证token
-export const verifyToken = function (req:Request, res:Response, next:NextFunction):void {
+export const verifyRestToken = function (req:Request, res:Response, next:NextFunction):void {
   console.log("validating token")
   try {
     const token = req.cookies.token

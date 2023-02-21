@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import UserDao from "../model/user";
-import { generateToken } from "../utils/jwt";
+import { generateRestToken } from "../utils/jwt";
 
 const axios = require("axios");
 const bcrypt = require("bcrypt");
@@ -46,7 +46,7 @@ const oauthCallback = async (req: Request, res: Response): Promise<void> => {
         const user = await UserDao.findOne({ email: email });
         if (user) {
           console.log("User exist o auth");
-          res.status(200).cookie("token", generateToken(user.email)).cookie("email",email).send();
+          res.status(200).cookie("token", generateRestToken(user.email)).cookie("email",email).send();
         } else {
           console.log("User not exist o auth");
           const newUser = new UserDao({
@@ -54,7 +54,7 @@ const oauthCallback = async (req: Request, res: Response): Promise<void> => {
           });
           await newUser.save();
           console.log("Oauth new user created");
-          res.status(200).cookie("token", generateToken(newUser.email)).cookie("email",email).send();
+          res.status(200).cookie("token", generateRestToken(newUser.email)).cookie("email",email).send();
         }
       } else {
         res.status(401).send("Bad Credential. OAUTH AUTHORITY NOT ENOUGH TO GET EMAIL.");
@@ -83,7 +83,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
       });
       await newUser.save();
       console.log("register ok");
-      res.status(200).cookie("token", generateToken(newUser.email)).cookie("email",email).send();
+      res.status(200).cookie("token", generateRestToken(newUser.email)).cookie("email",email).send();
     } else {
       res.status(400).send("No enough information.");
     }
@@ -103,10 +103,10 @@ const emailLogin = async (req: Request, res: Response): Promise<void> => {
       if (user) {
         console.log("User login with email found in db");
         if (user.password && bcrypt.compareSync(password, user.password)) {
-          res.status(200).cookie("token", generateToken(user.email)).cookie("email",email).send();
+          res.status(200).cookie("token", generateRestToken(user.email)).cookie("email",email).send();
         }
         if (!user.password) {
-          res.status(200).cookie("token", generateToken(user.email)).cookie("email",email).send();
+          res.status(200).cookie("token", generateRestToken(user.email)).cookie("email",email).send();
         }
       } else {
         console.log("User login with email not found in db", email);
