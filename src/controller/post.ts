@@ -73,3 +73,12 @@ const deletePosts = async (req: Request, res: Response) => {
   }
 
 };
+
+module.exports = {
+  deletePosts,
+  createPosts,
+  updatePosts,
+  getAllPosts,
+  getAllPublicPosts
+
+}

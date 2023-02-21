@@ -4,15 +4,15 @@ const postController = require("../controller/post")
 
 const router = Router();
 
-router.get("/public",postController)
+router.get("/public",postController.getAllPublicPosts)
 
-router.get("/",postController)
+router.get("/",postController.getAllPosts)
 
-router.post("/",postController)
+router.post("/",postController.createPosts)
 
-router.put("/",postController)
+router.put("/",postController.updatePosts)
 
-router.delete("/",postController)
+router.delete("/",postController.deletePosts)
 
 
 module.exports = router
