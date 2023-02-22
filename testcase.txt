@@ -1,0 +1,73 @@
+# test graphql login
+query Query{
+  login(userDetails:{email: "123@qq.com", password:"1234"})
+}
+
+# oauth
+query Query{
+  oauth
+}
+
+# register
+query Query{
+  register(userDetails:{email: "12345@qq.com",
+    name: "zhangsan",
+    password:"1234"})
+}
+
+# all public posts
+query Query{
+  allPublicPosts{
+      _id
+      createBy
+      createDate
+      title
+      body
+      tags
+      access
+      views
+  }
+}
+
+# allPosts
+query Query{
+  allPosts(email:"1234@qq.com"){
+      _id
+      createBy
+      createDate
+      title
+      body
+      tags
+      access
+      views
+  }
+}
+
+# create post
+query Query{
+  createPost(post:{
+      createBy:"1234@qq.com"
+      title :"test"
+      body:"test"
+      tags:["test"]
+      access:true}
+  )
+}
+
+# update post
+query Query{
+  updatePost(post:{
+      _id:"63f58d100767385a377759e2"
+      createBy:"1234@qq.com"
+      title :"test1"
+      body:"test"
+      tags:["test"]
+      access:true}
+  )
+}
+
+# delete post
+query Query{
+  deletePost(id:"63f587ed56619468bfbf0c37")
+}
+

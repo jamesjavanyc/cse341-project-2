@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose"
 import { IPost } from "@model/abstract/post";
-import User from "@model/user";
 
 const postSchema: Schema = new Schema(
   {

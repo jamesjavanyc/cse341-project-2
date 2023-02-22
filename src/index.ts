@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger('dev'));
 
-app.use("/rest",  require("./routes"))
+app.use("/",  require("./routes"))
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log('handler error...', err)
