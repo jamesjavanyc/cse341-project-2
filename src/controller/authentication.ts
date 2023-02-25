@@ -113,7 +113,7 @@ const emailLogin = async (req: Request, res: Response): Promise<void> => {
         res.status(401).send("Bad Credential.");
       }
     } else {
-      res.status(401).send("Bad Credential.");
+      res.status(401).send("Email required.");
     }
   } catch (e) {
     console.log(e);

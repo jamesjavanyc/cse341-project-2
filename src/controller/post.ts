@@ -35,7 +35,7 @@ const updatePosts = async (req: Request, res: Response) => {
       });
       res.status(204).send();
     } else {
-      res.status(400).send("ID!!!!");
+      res.status(400).send("ID is required.");
     }
   } catch (e) {
     res.status(500).send("ERROR!");
@@ -62,7 +62,7 @@ const createPosts = async (req: Request, res: Response) => {
 const deletePosts = async (req: Request, res: Response) => {
   try {
     if (!req.query.id) {
-      res.status(400).send("ID!!!!");
+      res.status(400).send("ID is required.");
       return;
     } else {
       await PostDao.findByIdAndDelete(req.query.id)
