@@ -6,9 +6,9 @@ type Query {
   register(userDetails: User): String
   allPublicPosts: [Post]
   allPosts(email:String): [Post]
-  createPost(post:PostIn): Int
-  updatePost(post:PostIn): Int
-  deletePost(id:String): Int
+  createPost(post:PostIn): String
+  updatePost(post:PostIn): String
+  deletePost(id:String): String
 }
 
 input User{
