@@ -34,6 +34,7 @@ const resolvers = {
       try {
         if(!param.userDetails.email) return "Email is required."
         if(!param.userDetails.password) return "Password is required."
+        if(param.userDetails.password.length> 10 ||  param.userDetails.password.length < 5) return "Password length should be from 5 - 10."
         let token: string = "";
         let password = await bcrypt.hash(param.userDetails.password, 10);
         await new User({
@@ -48,7 +49,7 @@ const resolvers = {
           }
         );
         console.log("Register: token is ", token);
-        return token;
+        return token=""?token:"Email already exists in database.";
       } catch (e) {
         console.log(e);
         return "";
