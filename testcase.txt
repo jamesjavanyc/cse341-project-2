@@ -8,6 +8,10 @@ query Query{
   oauth
 }
 
+query Query{
+    logout
+}
+
 # register
 query Query{
   register(userDetails:{email: "12345@qq.com",

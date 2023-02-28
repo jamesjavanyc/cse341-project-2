@@ -25,3 +25,8 @@ export const verifyRestToken = function (req:Request, res:Response, next:NextFun
     res.json({ code: "403", msg: "Token expired or invalid." });
   }
 };
+
+export const logout = function ():void {
+  console.log("Logout")
+
+};

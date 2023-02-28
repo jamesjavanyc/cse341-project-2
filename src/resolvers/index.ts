@@ -1,8 +1,8 @@
-import { IUser } from "@model/abstract/user";
 import User from "../model/user";
 import { generateRestToken } from "../utils/jwt";
 import Post from "../model/post";
 import { IPost } from "../model/abstract/post";
+import {logout} from "../utils/jwt";
 
 const bcrypt = require("bcrypt");
 
@@ -26,6 +26,14 @@ const resolvers = {
       } catch (e) {
         console.log(e);
         return "";
+      }
+    },
+    logout: async(): Promise<String> => {
+      try{
+        logout()
+        return "Logout success."
+      }catch (e) {
+        return "Logout error"
       }
     },
 

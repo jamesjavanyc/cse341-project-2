@@ -3,6 +3,7 @@ const typeDefs = `
 type Query {
   login(userDetails: User): String
   oauth: String
+  logout: String
   register(userDetails: User): String
   allPublicPosts: [Post]
   allPosts(email:String): [Post]
