@@ -6,6 +6,8 @@ import {logout} from "../utils/jwt";
 
 const bcrypt = require("bcrypt");
 
+const tokenRepo: string[] = []
+
 const resolvers = {
 
   Query: {
@@ -18,6 +20,10 @@ const resolvers = {
           (res) => {
             if (res !== null) {
               token = generateRestToken(res.email);
+              tokenRepo.push(token)
+              setTimeout(()=>{
+                tokenRepo.splice(tokenRepo.indexOf(token), 1)
+              }, 1000 * 30);
             }
           }
         );
@@ -43,24 +49,21 @@ const resolvers = {
         if(!param.userDetails.email) return "Email is required."
         if(!param.userDetails.password) return "Password is required."
         if(param.userDetails.password.length> 10 ||  param.userDetails.password.length < 5) return "Password length should be from 5 - 10."
-        let token: string = "";
         let password = await bcrypt.hash(param.userDetails.password, 10);
-        await new User({
+        if( await User.findOne({email: param.userDetails.email})) return "Email exists in database"
+        let user = await new User({
           email: param.userDetails.email,
           password: password,
           name: param.userDetails.name
-        }).save().then(
-          (res) => {
-            if (res !== null) {
-              token = generateRestToken(res.email);
-            }
-          }
-        );
-        console.log("Register: token is ", token);
-        return token=""?token:"Email already exists in database.";
+        })
+        let token = generateRestToken(user.email)
+        tokenRepo.push(token)
+        setTimeout(()=>{
+          tokenRepo.splice(tokenRepo.indexOf(token), 1)
+        }, 1000 * 30);
+        return token
       } catch (e) {
-        console.log(e);
-        return "";
+        return "Error";
       }
     },
 
