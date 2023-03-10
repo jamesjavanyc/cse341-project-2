@@ -138,9 +138,6 @@ const resolvers = {
     },
     deletePost: async (parent: any, param: any):  Promise<String> => {
       try {
-        if(!param.post.token){
-          return "Please login"
-        }
         if(!param.id) return "ID is required."
         Post.findByIdAndDelete(param.id).then(res=>{
           console.log(" post deleted")
