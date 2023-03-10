@@ -61,8 +61,8 @@ query Query{
 
 # update post
 query Query{
-  updatePost(post:{
-      _id:"63f58d100767385a377759e2"
+  updatePost(id:"63fd6f825efdda44c1d0ee7d", post:{
+      _id:"63fd6f825efdda44c1d0ee7d"
       createBy:"1234@qq.com"
       title :"test1"
       body:"test"
