@@ -12,13 +12,6 @@ const { ApolloServer } = require("apollo-server-express");
 const typeDefs = require("./typeDef")
 const resolvers = require("./resolvers")
 
-const apolloServer = new ApolloServer({
-
-  typeDefs,
-
-  resolvers
-
-});
 
 
 dotenv.config();
@@ -37,6 +30,17 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log('handler error...', err)
 })
 
+const apolloServer = new ApolloServer({
+
+  typeDefs,
+
+  resolvers,
+
+  context: ({ req }: { req: Request }) => {
+    return { token: req.cookies.token };
+  }
+
+});
 
 const mongooseOption = {
   useNewUrlParser: true,

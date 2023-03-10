@@ -8,7 +8,7 @@ type Query {
   allPublicPosts: [Post]
   allPosts(email:String): [Post]
   createPost(post:PostIn): String
-  updatePost(post:PostIn): String
+  updatePost(id:String, post:PostIn): String
   deletePost(id:String): String
 }
 
@@ -31,6 +31,7 @@ type Post{
 
 input PostIn{
   _id:String
+  token: String
   createBy: String!
   title: String!
   body: String!

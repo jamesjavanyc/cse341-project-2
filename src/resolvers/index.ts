@@ -106,6 +106,9 @@ const resolvers = {
     },
     createPost: async (parent: any, param: any):  Promise<String> => {
       try {
+        if(!param.post.token){
+          return "Please login"
+        }
         if(!param.post)return "Post cannot be empty"
         if(!param.post.title)return "Title cannot be empty"
         if(!param.post.body)return "Body cannot be empty"
@@ -120,6 +123,9 @@ const resolvers = {
     },
     updatePost: async (parent: any, param: any):  Promise<String> => {
       try {
+        if(!param.post.token){
+          return "Please login"
+        }
         if(!param.id) return "ID is required."
         Post.findByIdAndUpdate(param.post.id, param.post).then(res=>{
           console.log(" post updated")
@@ -132,6 +138,9 @@ const resolvers = {
     },
     deletePost: async (parent: any, param: any):  Promise<String> => {
       try {
+        if(!param.post.token){
+          return "Please login"
+        }
         if(!param.id) return "ID is required."
         Post.findByIdAndDelete(param.id).then(res=>{
           console.log(" post deleted")
